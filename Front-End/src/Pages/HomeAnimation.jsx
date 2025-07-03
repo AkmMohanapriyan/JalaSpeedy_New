@@ -178,7 +178,7 @@ const JalaSpeedyHome = () => {
           <h1 className="mb-3">JalaSpeedy Trusted Water Supply Partner</h1>
 
           <p className='text-justify'>Welcome to JalaSpeedy, the modern solution for fast and dependable water delivery services. In an age where every drop counts, we ensure that your home, business, or community never goes without the water it needs. At JalaSpeedy, we’re not just a water supply company — we are a mission-driven team committed to making water accessible, affordable, and timely for everyone. Whether you're facing a shortage, planning ahead, or responding to an emergency, our platform is designed to connect you with verified water suppliers in just a few clicks.</p>
-          <button onClick={LoginModal} className="btn btn-get-started mb-5 mt-4" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</button>
+          <button onClick={LoginModal} className="btn-get-started mb-5 mt-4" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</button>
           </div>
 
           <div className="row mt-5">

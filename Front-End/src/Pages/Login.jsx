@@ -19,8 +19,7 @@ const LoginModal = () => {
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [message, setMessage] = useState('');
-const [messageType, setMessageType] = useState(''); // 'success' or 'danger'
-
+const [messageType, setMessageType] = useState('');
 
   const navigate = useNavigate();
 
