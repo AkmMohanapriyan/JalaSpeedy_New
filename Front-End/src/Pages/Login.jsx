@@ -1,0 +1,145 @@
+import React, { useState  } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../assets/Css/login.css';
+import RegisterModal from './Register';
+import { Link } from 'react-scroll';
+import Modal from 'bootstrap/js/dist/modal';
+import axios from 'axios';
+
+
+import { useNavigate } from 'react-router-dom';
+
+
+
+const LoginModal = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+
+
+  const navigate = useNavigate();
+
+const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/users/login", {
+        email,
+        password,
+      });
+
+      // Save token and user to localStorage
+      localStorage.setItem("auth_token", res.data.token);
+      localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+
+      alert("Login successful!");
+
+      // Optional: Close Bootstrap modal (if using Bootstrap)
+      const modalEl = document.getElementById("loginModal");
+      if (modalEl) {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+      }
+
+      // Redirect based on role (optional)
+      if (res.data.user.role === "admin") {
+        navigate("/admindashboard");
+      } else if (res.data.user.role === "supplier") {
+        navigate("/supplierdashboard");
+      } else {
+        navigate("/userdashboard");
+      }
+
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Invalid email or password");
+    }
+  };
+
+
+
+  return (
+    <>
+
+      {/* Modal */}
+      <div
+        className="modal fade"
+        id="loginModal"
+        tabIndex="-1"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content rounded-4 shadow">
+
+            {/* Modal Header */}
+            <div className="modal-header border-bottom-0">
+              <h5 className="modal-title" id="loginModalLabel">Login to JalaSpeedy</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="modal-body px-4 pb-4">
+              <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email address</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="example@jalaspeedy.lk"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <div className="input-group">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="form-control"
+                      id="password"
+                      placeholder="Enter your password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <button
+                      className="btn btn-outline-secondary"
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      <i className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="d-grid">
+                  <button type="submit" className="btn btn-primary rounded-pill">Login</button>
+                </div>
+
+                <div className="mt-3 text-center">
+                  <small>
+                    Don't have an account? <Link to={RegisterModal} data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Sign Up</Link>
+                  </small>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default LoginModal;

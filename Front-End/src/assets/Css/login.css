@@ -1,0 +1,7 @@
+.modal-content {
+  transition: all 0.3s ease;
+}
+
+.modal-content:focus-within {
+  transform: scale(1.02);
+}
