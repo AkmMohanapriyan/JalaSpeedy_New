@@ -97,6 +97,7 @@ const HomeSection = () => {
     <>
 
     <Navbar />
+
       {/* Home Section */}
 
       <section id="home" className="text-center home-section">
