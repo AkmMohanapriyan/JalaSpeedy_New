@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import LoginModal from './Login';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import HomeAnimation from './HomeAnimation';
 
 
 const HomeSection = () => {
@@ -93,27 +94,32 @@ const HomeSection = () => {
   },
 ];
 
+
   return (
     <>
 
     <Navbar />
+    <HomeAnimation />
 
       {/* Home Section */}
 
-      <section id="home" className="text-center home-section">
+      {/* <section id="home" className="text-center home-section">
 
-        {/* <video autoPlay loop muted playsInline className="background-video">
+        <video autoPlay loop muted playsInline className="background-video">
         <source src={backgroundVideo} type="video/mp4" />
         Your browser does not support the video tag.
-      </video> */}
+      </video>
 
         <div className="container-fluid">
-          <h1 className="mb-3"><span className='jala'>Jala</span><span className='speedy'>Speedy</span> Trusted Water Supply Partner</h1>
+          <div className='hero-section'>
+          <h1 className="mb-3">JalaSpeedy Trusted Water Supply Partner</h1>
+
+          <p className='text-justify'>Welcome to JalaSpeedy, the modern solution for fast and dependable water delivery services. In an age where every drop counts, we ensure that your home, business, or community never goes without the water it needs. At JalaSpeedy, we’re not just a water supply company — we are a mission-driven team committed to making water accessible, affordable, and timely for everyone. Whether you're facing a shortage, planning ahead, or responding to an emergency, our platform is designed to connect you with verified water suppliers in just a few clicks.</p>
           <p className="mb-4">
-            Efficiently manage water distribution, track usage and equitable access to clean water
-            for all communities with our advanced water supply management platform.
+            Efficiently manage water distribution, track usage and equitable access to clean water for all communities with our advanced water supply management platform.
           </p>
           <a href={LoginModal} className="btn btn-get-started mb-5" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</a>
+          </div>
 
           <div className="row mt-5">
             <div className="col-md-4 mb-4">
@@ -139,7 +145,7 @@ const HomeSection = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
       {/* About Section */}
@@ -179,8 +185,8 @@ const HomeSection = () => {
       <section id="features" className="feature-section py-5">
         <div className="container-fluid">
           <div className="text-center mb-5">
-            <h2 className="fw-bold">Features</h2>
-            <p className="text-muted">Discover what makes JalaSpeedy reliable and powerful</p>
+            <h2 className="fw-bold feature-title">Features</h2>
+            <p className="">Discover what makes JalaSpeedy reliable and powerful</p>
           </div>
 
           <div className="row g-4">
@@ -191,7 +197,7 @@ const HomeSection = () => {
                     <i className={`bi ${feature.icon} fs-1`}></i>
                   </div>
                   <h5 className="fw-semibold">{feature.title}</h5>
-                  <p className="text-muted">{feature.desc}</p>
+                  <p className="">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -205,8 +211,8 @@ const HomeSection = () => {
        <section id="services" className="service-section py-5 bg-white">
       <div className="container-fluid">
         <div className="text-center mb-5">
-          <h2 className="fw-bold">Our Services</h2>
-          <p className="text-muted">JalaSpeedy provides a range of services to make water supply smarter and accessible</p>
+          <h2 className="fw-bold service-title">Our Services</h2>
+          <p className="">JalaSpeedy provides a range of services to make water supply smarter and accessible</p>
         </div>
 
         <div className="row g-4">
@@ -217,7 +223,7 @@ const HomeSection = () => {
                   <i className={`bi ${service.icon} fs-1`}></i>
                 </div>
                 <h5 className="fw-semibold">{service.title}</h5>
-                <p className="text-muted">{service.desc}</p>
+                <p className="">{service.desc}</p>
               </div>
             </div>
           ))}
@@ -287,7 +293,7 @@ const HomeSection = () => {
                 <div className="mb-3">
                   <textarea className="form-control" rows="4" placeholder="Message"></textarea>
                 </div>
-                <button type="submit" className="btn btn-submit">Send Message</button>
+                <button type="submit" className="btn-sendMsg">Send Message</button>
               </form>
             </div>
           </div>

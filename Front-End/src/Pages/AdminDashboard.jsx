@@ -994,6 +994,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Internal CSS */}
+      
       <style>{`
 
         .sidebar {
@@ -1017,6 +1018,7 @@ const AdminDashboard = () => {
         }
       `}</style>
     </div>
+
   );
 };
 

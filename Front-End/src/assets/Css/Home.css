@@ -1,6 +1,10 @@
+
 /* Home Section Style Start */
 
 .home-section {
+  color: white;
+  text-align: center;
+  overflow: hidden;
   width: 100%;
   height: 100vh;
   font-family: 'Segoe UI', sans-serif;
@@ -8,42 +12,34 @@
 
 .home-section .container-fluid {
     padding: 90px;
-
 }
 
-.background-video {
-  position: absolute;
-  top: 0;
-  left: 0;
+.hero-section {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.6); /* dark overlay effect */
+  margin: 0 auto;
+  position: relative;
 }
+
 .home-section h1 {
   font-weight: 700;
   font-size: 2.5rem;
   padding-top: 40px;
-
-}
-
-.jala {
-  color: #40A1F0;
-}
-
-.speedy {
-  color: orangered;
+  color: black;
 }
 
 .home-section p {
-  /* max-width: 700px; */
   margin: 0 auto;
   font-size: 1.1rem;
-  color: #333;
+  text-align: justify;
+  color: white;
 }
 
-.btn-get-started {
+/* .btn-get-started {
   padding: 10px 20px;
   border: 2px solid black;
   border-radius: 8px;
@@ -57,9 +53,9 @@
 
 .btn-get-started:hover {
   background-color: #f1f1f1;
-}
+} */
 
-.feature-box {
+/* .feature-box {
   background-color: #f8f9fa;
   padding: 30px 20px;
   border-radius: 10px;
@@ -77,7 +73,7 @@
 .feature-box p {
   font-size: 0.95rem;
   color: #555;
-}
+} */
 
     @media (max-width: 768px) {
         .home-section{
@@ -140,12 +136,23 @@
     }
 
     @media (max-width: 768px) {
+
+      #about {
+        height: auto;
+      }
+
+      #about .container-fluid {
+        padding: 20px;
+      }
+
       #about .about-title {
         font-size: 2rem;
+        padding-top: 80px;
       }
 
       #about .about-text {
         font-size: 1rem;
+        color: black;
       }
 
        #about .about-title {
@@ -181,6 +188,32 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+    @media (max-width: 768px) {
+
+      .feature-section {
+        height: auto;
+      }
+
+      .feature-section .container-fluid {
+        padding: 20px;
+      }
+
+      .feature-card {
+        margin-bottom: 20px;
+      }
+
+      .feature-card h5 {
+        font-size: 1.2rem;
+      }
+
+      .feature-section .feature-title {
+        font-size: 2rem;
+        text-align: center;
+        padding-top: 60px;
+      }
+
+    }
+
 
 /* Features Section Style End */
 
@@ -206,6 +239,37 @@
   padding: 90px;
 }
 
+
+    @media (max-width: 768px) {
+
+      .service-section {
+        height: auto;
+      }
+
+      .service-section .container-fluid {
+        padding: 20px;
+      }
+
+      .service-card {
+        margin-bottom: 20px;
+      }
+
+      .service-card h5 {
+        font-size: 1.2rem;
+      }
+
+      .service-card p {
+        font-size: 0.9rem;
+        color: black;
+      }
+
+      .service-section .service-title {
+        font-size: 2rem;
+        text-align: center;
+        padding-top: 60px;
+      }
+
+    }
 
 /* Services Section Style End */
 
@@ -267,17 +331,25 @@ textarea {
   transition: 0.3s ease;
 }
 
-.btn-submit {
-  background-color: #f6f6f6;
+.btn-sendMsg {
+  background: #000428;
   color: #000000;
-    border: 1px solid #3d3d3d;      
+  border: 1px solid #3d3d3d;      
   width: 100%;
+  border: 2px solid white;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  color: white;
 }
 
-.btn-submit:hover {
-  background-color: #000000;
+.btn-sendMsg:hover {
+  /* background-color: #000428; */
+  background: linear-gradient(to right, #0056b3, #00aaff);
   color: #f6f6f6;
-    border: 1px solid #3d3d3d;      
+  border: 1px solid #3d3d3d;      
 
 }
 
@@ -296,5 +368,60 @@ textarea {
   display: flex;
   font-size: 40px;
   border-radius: 10px;
+}
+
+
+
+    @media (max-width: 768px) {
+
+  .contact-section {
+    height: auto;
+  }
+  .contact-section .container-fluid {
+    padding: 20px;
+  }
+
+  .contact-section ul li {
+    margin-bottom: 20px;
+  }
+
+  .contact-section .social a {
+    width: 100%;
+    height: 80px;
+    font-size: 30px;
+  }
+
+  .contact-section .social a i {
+    font-size: 30px;
+  }
+
+  .contact-section .social a span {
+    display: none;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3d3d3d;
+    border-radius: 5px;
+    transition: 0.3s ease;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #f6f6f6;
+    color: #000000;
+    border: 1px solid #3d3d3d;
+    transition: 0.3s ease;
+  }
+
 }
 /* Contact Section Style End */

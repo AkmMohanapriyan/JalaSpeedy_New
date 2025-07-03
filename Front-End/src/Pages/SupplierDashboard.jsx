@@ -490,7 +490,10 @@ const SupplierDashboard = () => {
         }
 
       `}</style>
+
         </div>
+
+
     );
 };
 

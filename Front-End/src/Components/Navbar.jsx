@@ -13,7 +13,7 @@ import RegisterModal from '../Pages/Register';
 const Navbar = () => {
   return (
     <>
-    <nav className="navbar navbar-expand-lg navbar-dark gradient-navbar py-3 sticky-top">
+    <nav className="navbar navbar-expand-lg navbar-dark gradient-navbar py-3 sticky-top shadow w-100">
       <div className="container-fluid">
         {/* Logo / Brand */}
         <a className="navbar-brand fw-bold fs-4" href="#">
@@ -57,7 +57,7 @@ const Navbar = () => {
           <div className="d-flex gap-2">
 
             <button className="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-            <button className="btn btn-light btn-sm text-primary fw-semibold" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</button>
+            <button className="btn btn-light btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#registerModal">Signup</button>
 
           </div>
         </div>
