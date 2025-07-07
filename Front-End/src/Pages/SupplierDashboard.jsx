@@ -251,10 +251,10 @@ const SupplierDashboard = () => {
                                                 </span>
                                             </td>
                                             <td className="text-center">
-                                                <button className="btn btn-sm btn-info me-2" title="View" onClick={() => { setViewRequest(req); setShowViewModal(true); }}>
+                                                <button className="btn-sm btn-info me-2" title="View" onClick={() => { setViewRequest(req); setShowViewModal(true); }}>
                                                     <i className="bi bi-eye"></i>
                                                 </button>
-                                                <button className="btn btn-sm btn-warning" title="Edit" onClick={() => { setViewRequest(req); setShowViewModal(true); }}>
+                                                <button className="btn-sm btn-warning" title="Edit" onClick={() => { setViewRequest(req); setShowViewModal(true); }}>
                                                     <i className="bi bi-pencil"></i>
                                                 </button>
                                             </td>
@@ -384,7 +384,7 @@ const SupplierDashboard = () => {
                                 </thead>
                                 <tbody>
                                     {Array.isArray(users) && users.map((user) => (
-                                        <tr key={user._id}>
+                                        <tr key={user._id} className="text-center">
                                             <td>{user._id}</td>
                                             <td>{user.username}</td>
                                             <td>{user.email}</td>

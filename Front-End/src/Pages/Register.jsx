@@ -3,76 +3,82 @@ import { Link } from 'react-scroll';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import LoginModal from './Login';
 import axios from 'axios';
 import '../assets/Css/Register.css';
+import SubscriptionModal from '../Pages/SubscriptionModal';
+import LoginModal from './Login';
+
 
 
 
 const RegisterModal = () => {
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const [showSubscription, setShowSubscription] = useState(false);
+  const [subscriptionMessage, setSubscriptionMessage] = useState({ show: false, text: '', type: '' });
+
   const [formData, setFormData] = useState({
-  username: '',
-  email: '',
-  role: '',
-  password: '',
-  confirmPassword: '',
-});
+    username: '', email: '', role: '', password: '', confirmPassword: '',
+  });
 
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // 'success' or 'danger'
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
-const handleChange = (e) => {
-  setFormData({ ...formData, [e.target.id]: e.target.value });
-};
-
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    const { username, email, role, password, confirmPassword } = formData;
-
+    const { password, confirmPassword } = formData;
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
-      setMessageType("danger");
+      setSubscriptionMessage({ show: true, text: 'Passwords do not match', type: 'danger' });
       return;
     }
+    const regModal = window.bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+    regModal?.hide();
+    setShowSubscription(true);
+  };
+
+  const handlePlanConfirm = async () => {
+    const { username, email, role, password } = formData;
 
     try {
-      const res = await axios.post('http://localhost:5000/api/users/register', {
-        username,
-        email,
-        role,
-        password,
+      const res = await fetch('http://localhost:5000/api/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, role, password })
       });
 
-      localStorage.setItem('userInfo', JSON.stringify(res.data));
-      setMessage("Registration successful!");
-      setMessageType("success");
+      const data = await res.json();
 
-      // After short delay, close this modal and open login modal
+      if (!res.ok) throw new Error(data.message || 'Registration failed');
+
+      localStorage.setItem('userInfo', JSON.stringify(data));
+
+      setSubscriptionMessage({ show: true, text: 'Registration Successful!', type: 'success' });
+
       setTimeout(() => {
-        const regModal = window.bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-        regModal?.hide();
-
+        setShowSubscription(false);
+        setSubscriptionMessage({ show: false, text: '', type: '' });
         const loginModal = new window.bootstrap.Modal(document.getElementById('loginModal'));
         loginModal?.show();
-      }, 1000);
+      }, 1500);
 
     } catch (err) {
-      console.error("Registration error:", err);
-      const errorMsg = err.response?.data?.message || "Registration failed";
-      setMessage(errorMsg);
-      setMessageType("danger");
+      console.error('Final Registration Error:', err);
+      setSubscriptionMessage({ show: true, text: err.message || 'Registration failed after subscription.', type: 'danger' });
     }
   };
 
-
+  const handleSubscriptionCancel = () => {
+    setShowSubscription(false);
+    setSubscriptionMessage({ show: true, text: 'Subscription not completed. Registration cancelled.', type: 'danger' });
+  };
 
   return (
     <>
 
-      {/* Modal */}
+      {/* Register Modal */}
       <div
         className="modal fade"
         id="registerModal"
@@ -89,11 +95,6 @@ const handleChange = (e) => {
             </div>
 
             <div className="modal-body px-4 pb-4">
-              {message && (
-                <div className={`alert alert-${messageType} text-center py-2`} role="alert">
-                  {message}
-                </div>
-              )}
 
               <div className="form-container">
                 <form onSubmit={handleRegister}>
@@ -190,6 +191,18 @@ const handleChange = (e) => {
           </div>
         </div>
       </div>
+
+      {/* Success Message */}
+
+      {showSubscription && (
+        <SubscriptionModal
+          show={showSubscription}
+          onClose={handleSubscriptionCancel}
+          onConfirm={handlePlanConfirm}
+          message={subscriptionMessage}
+        />
+      )}
+
     </>
   );
 };

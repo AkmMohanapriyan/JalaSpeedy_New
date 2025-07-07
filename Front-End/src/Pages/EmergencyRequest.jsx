@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-control-geocoder";
-import axios from "../Utils/axios"; // Adjust the path as necessary
+import axios from "../Utils/axios";
 
 const EmergencyRequest = () => {
   const [showModal, setShowModal] = useState(false);
@@ -73,31 +73,31 @@ const EmergencyRequest = () => {
     setLocation(`${lat.toFixed(5)}, ${lng.toFixed(5)}`);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const payload = {
-    purpose,
-    amount,
-    date,
-    location,
+    const payload = {
+      purpose,
+      amount,
+      date,
+      location,
+    };
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/emergency-requests", payload);
+      alert("Request submitted successfully!");
+      closeModal();
+      setPurpose("");
+      setAmount("");
+      setLocation("");
+      setDate(new Date().toISOString().split("T")[0]);
+    } catch (error) {
+      console.error(error);
+      alert(
+        error?.response?.data?.message || "Failed to submit emergency request."
+      );
+    }
   };
-
-  try {
-    const response = await axios.post("http://localhost:5000/api/emergency-requests", payload);
-    alert("Request submitted successfully!");
-    closeModal();
-    setPurpose("");
-    setAmount("");
-    setLocation("");
-    setDate(new Date().toISOString().split("T")[0]);
-  } catch (error) {
-    console.error(error);
-    alert(
-      error?.response?.data?.message || "Failed to submit emergency request."
-    );
-  }
-};
 
   return (
     <>
@@ -192,7 +192,7 @@ const handleSubmit = async (e) => {
 
 
 
-        <style>{`
+      <style>{`
         .modal-content {
             background-color: #f8f9fa;
             width: 90%;

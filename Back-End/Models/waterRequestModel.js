@@ -28,7 +28,7 @@ const waterRequestSchema = new mongoose.Schema({
     enum: ['Pending', 'Approved', 'Delivered', 'Rejected'],
     default: 'Pending',
   },
-    
+
 }, { timestamps: true });
 
 const WaterRequest = mongoose.model('WaterRequest', waterRequestSchema);

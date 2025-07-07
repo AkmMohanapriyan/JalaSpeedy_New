@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import EmergencyRequest from './EmergencyRequest';
+import '../assets/Css/UserDashboard.css';
 
 
 
@@ -191,26 +192,26 @@ useEffect(() => {
     <div className="d-flex min-vh-100 userDashboard">
       {/* Sidebar */}
       <div
-        className={`sidebar bg-primary text-white p-3 ${sidebarOpen ? "d-block" : "d-none d-md-block"
+        className={`sidebar text-white p-3 ${sidebarOpen ? "d-block" : "d-none d-md-block"
           }`}
         style={{ width: "250px" }}
       >
-        <h4 className="mb-4 text-center">Jalaspeedy</h4>
+        <h4 className="mb-4 mt-4 text-center">Jalaspeedy</h4>
         <ul className="nav flex-column">
           <li className="nav-item mb-2">
             <button
-              className={`btn w-100 text-start ${activeTab === "dashboard"
+              className={`dashboard p-2 w-100 text-center ${activeTab === "dashboard"
                 ? "btn-light text-primary"
                 : "btn-outline-light"
                 }`}
               onClick={() => setActiveTab("dashboard")}
             >
               Dashboard
-            </button>
+            </button> 
           </li>
           <li className="nav-item mb-2">
             <button
-              className={`btn w-100 text-start ${activeTab === "request"
+              className={`p-2 w-100 text-center ${activeTab === "request"
                 ? "btn-light text-primary"
                 : "btn-outline-light"
                 }`}
@@ -221,12 +222,12 @@ useEffect(() => {
           </li>
 
           <li className="nav-item mb-2">
-            <button className={`btn w-100 text-start ${activeTab === "myWaterRequest" ? "btn-light text-primary" : "btn-outline-light"}`} onClick={() => setActiveTab("myWaterRequest")}>My Water Request</button>
+            <button className={`p-2 w-100 text-center ${activeTab === "myWaterRequest" ? "btn-light text-primary" : "btn-outline-light"}`} onClick={() => setActiveTab("myWaterRequest")}>My Water Request</button>
           </li>
 
           <li className="nav-item mb-2">
             <button
-              className={`btn w-100 text-start ${activeTab === "report"
+              className={`p-2 w-100 text-center ${activeTab === "report"
                 ? "btn-light text-primary"
                 : "btn-outline-light"
                 }`}
@@ -237,7 +238,7 @@ useEffect(() => {
           </li>
           <li className="nav-item mb-5">
             <button
-              className={`btn w-100 text-start ${activeTab === "myreports"
+              className={`p-2 w-100 text-center ${activeTab === "myreports"
                 ? "btn-light text-primary"
                 : "btn-outline-light"
                 }`}
@@ -251,7 +252,7 @@ useEffect(() => {
         {/* Close Button (Mobile only) */}
         <div className="d-md-none mb-3">
           <button
-            className="btn btn-outline-light w-100 close"
+            className="p-2 btn-outline-light w-100 close"
             onClick={() => setSidebarOpen(false)}
             style={{ marginTop: "400px" }}
           >
@@ -260,8 +261,8 @@ useEffect(() => {
         </div>
 
         {/* Logout Button (Fixed Bottom) */}
-        <div className="mt-auto">
-          <button className="btn btn-outline-light w-100 d-block logout" style={{ marginTop: "4px" }} onClick={handleLogout}>
+        <div className="mt-auto logout-button">
+          <button className="p-2 btn-outline-light w-100 d-block logout text-center" style={{ marginTop: "4px" }} onClick={handleLogout}>
             <i className="bi bi-box-arrow-right me-2"></i>Logout
           </button>
         </div>
@@ -363,7 +364,7 @@ useEffect(() => {
                 <label className="form-label">Date Needed</label>
                 <input type="date" className="form-control" value={dateNeeded} onChange={(e) => setDateNeeded(e.target.value)} required />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn-primary" style={{ width: "20%", padding: "10px", borderRadius: "10px" }}>
                 Submit Request
               </button>
             </form>
@@ -378,7 +379,7 @@ useEffect(() => {
             <div className="table-responsive mt-3">
               <table className="table table-bordered table-striped align-middle">
                 <thead className="table-primary">
-                  <tr>
+                  <tr className="text-center">
                     <th>#</th>
                     <th>Purpose</th>
                     <th>Amount (L)</th>
@@ -389,14 +390,14 @@ useEffect(() => {
                 </thead>
                 <tbody>
                   {Array.isArray(myRequests) && myRequests.map((req, i) => (
-                    <tr key={i}>
+                    <tr key={i} className="text-center">
                       <td>{i + 1}</td>
                       <td>{req.purpose}</td>
                       <td>{req.amount}</td>
                       <td>{req.dateNeeded}</td>
                       <td>{req.status || "Pending"}</td>
                       <td>
-                        <button className="btn btn-sm btn-info" onClick={() => { setSelectedRequest(req); setShowModal(true); }}>
+                        <button className="btn-sm btn-info p-2" style={{ borderRadius: "10px", width: "30%" }} onClick={() => { setSelectedRequest(req); setShowModal(true); }}>
                           <i className="bi bi-eye"></i>
                         </button>
                       </td>
@@ -486,7 +487,7 @@ useEffect(() => {
                   required
                 ></textarea>
               </div>
-              <button type="submit" className="btn btn-danger">
+              <button type="submit" className="btn-primary" style={{ width: "20%", padding: "10px", borderRadius: "10px" }}>
                 Submit Report
               </button>
             </form>
@@ -514,7 +515,7 @@ useEffect(() => {
                       <td>{rep.type}</td>
                       <td>{rep.description}</td>
                       <td className="text-center">
-                        <button className="btn btn-sm btn-info me-2" onClick={() => { setSelectedReport(rep); setShowReportModal(true); }}>
+                        <button className="btn-sm btn-info me-2" style={{ borderRadius: "10px", width: "30%" }} onClick={() => { setSelectedReport(rep); setShowReportModal(true); }}>
                           <i className="bi bi-eye"></i>
                         </button>
                       </td>

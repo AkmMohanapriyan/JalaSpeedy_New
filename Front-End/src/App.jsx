@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import './App.css'
 import { Routes, Route } from "react-router-dom";
+import SubscriptionModal from './Pages/SubscriptionModal';
 
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
@@ -10,6 +10,9 @@ import SupplierDashboard from './Pages/SupplierDashboard';
 import AdminDashboard from './Pages/AdminDashboard';
 import LoadingScreen from './Pages/LoadingScreen';
 
+import LoginModal from './Pages/Login';
+import RegisterModal from './Pages/Register';
+
 
 function App() {
 
@@ -18,16 +21,17 @@ function App() {
 
 
 
-        <Routes>
-          <Route path="/" element={<LoadingScreen />} />
-          <Route path="/home" element={<HomePage />} /> 
-          <Route path="/userdashboard" element={<UserDashboard />} /> 
-          <Route path="/supplierdashboard" element={<SupplierDashboard />} />
-          <Route path="/admindashboard" element={<AdminDashboard />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LoadingScreen />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/userdashboard" element={<UserDashboard />} />
+        <Route path="/supplierdashboard" element={<SupplierDashboard />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/subscription" element={<SubscriptionModal />} />
+      </Routes>
 
-
-
+      <RegisterModal />
+      <LoginModal />
 
     </>
   )

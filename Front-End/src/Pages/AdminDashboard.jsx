@@ -248,7 +248,6 @@ const AdminDashboard = () => {
   }, [activeTab]);
 
   // Report Management
-
   // Fetch Reports
   useEffect(() => {
     const fetchReports = async () => {
@@ -312,7 +311,7 @@ const AdminDashboard = () => {
     }
   };
 
-// Fetch Admin Info
+  // Fetch Admin Info
 
   const [adminName, setAdminName] = useState("");
 
@@ -322,13 +321,13 @@ const AdminDashboard = () => {
       axios.get("/api/users/me", {
         headers: { Authorization: `Bearer ${token}` }
       })
-      .then(res => {
-        setAdminName(res.data.username || "Admin");
-      })
-      .catch(err => {
-        console.error("Failed to fetch admin info", err);
-        setAdminName("Admin");
-      });
+        .then(res => {
+          setAdminName(res.data.username || "Admin");
+        })
+        .catch(err => {
+          console.error("Failed to fetch admin info", err);
+          setAdminName("Admin");
+        });
     }
   }, []);
 
@@ -380,8 +379,8 @@ const AdminDashboard = () => {
         </ul>
 
         {/* Logout at Bottom */}
-        <div className="mt-auto">
-          <button className="btn btn-outline-light w-100" onClick={handleLogout}>
+        <div className="mt-auto logout-button">
+          <button className="btn-outline-light w-100 logout p-3" onClick={handleLogout}>
             <i className="bi bi-box-arrow-right me-2"></i>Logout
           </button>
         </div>
@@ -404,10 +403,10 @@ const AdminDashboard = () => {
             </button>
           </div>
           <div className="ms-auto p-3 bg-white p-3 rounded shadow-sm w-100">
-          <h5 className="fw-bold">
-            {adminName ? `Welcome, Admin ${adminName}!` : "Admin Dashboard"}
-          </h5>
-        </div>
+            <h5 className="fw-bold">
+              {adminName ? `Welcome, Admin ${adminName}!` : "Admin Dashboard"}
+            </h5>
+          </div>
         </div>
 
         {/* User Management Tab */}
@@ -424,7 +423,7 @@ const AdminDashboard = () => {
             <div className="table-responsive mt-3">
               <table className="table table-bordered table-striped">
                 <thead className="table-primary">
-                  <tr>
+                  <tr className="text-center">
                     <th>#</th>
                     <th>User ID</th>
                     <th>Name</th>
@@ -441,20 +440,20 @@ const AdminDashboard = () => {
                         user.email.toLowerCase().includes(searchUser.toLowerCase()))
                     )
                     .map((user, i) => (
-                      <tr key={user._id}>
+                      <tr key={user._id} className="text-center">
                         <td>{i + 1}</td>
                         <td>{user._id}</td>
                         <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td><span className="badge bg-secondary">{user.role}</span></td>
-                        <td>
-                          <button className="btn btn-sm btn-info me-2" onClick={() => { setSelectedUser(user); setShowViewModal(true); }}>
+                        <td className="text-center">
+                          <button className="btn-sm btn-info me-2" onClick={() => { setSelectedUser(user); setShowViewModal(true); }}>
                             <i className="bi bi-eye"></i> View
                           </button>
-                          <button className="btn btn-sm btn-warning me-2" onClick={() => { setSelectedUser(user); setShowEditModal(true); }}>
+                          <button className="btn-sm btn-warning me-2" onClick={() => { setSelectedUser(user); setShowEditModal(true); }}>
                             <i className="bi bi-pencil"></i> Edit
                           </button>
-                          <button className="btn btn-sm btn-danger" onClick={() => deleteUser(user._id)}>
+                          <button className="btn-sm btn-danger" onClick={() => deleteUser(user._id)}>
                             <i className="bi bi-trash"></i> Delete
                           </button>
                         </td>
@@ -539,8 +538,8 @@ const AdminDashboard = () => {
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button type="submit" className="btn btn-primary">Save Changes</button>
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowEditModal(false)}>Cancel</button>
+                  <button type="submit" className="p-2" style={{ backgroundColor: '#0d6efd', color: '#fff', borderRadius: '10px', padding: "3" }}>Save Changes</button>
+                  <button type="button" className="btn-secondary p-2" onClick={() => setShowEditModal(false)}>Cancel</button>
                 </div>
               </form>
             </div>
@@ -562,7 +561,7 @@ const AdminDashboard = () => {
             <div className="table-responsive mt-3">
               <table className="table table-bordered table-striped">
                 <thead className="table-primary">
-                  <tr>
+                  <tr className="text-center">
                     <th>#</th>
                     <th>Supplier ID</th>
                     <th>Name</th>
@@ -578,20 +577,20 @@ const AdminDashboard = () => {
                       s.email?.toLowerCase().includes(searchSupplier.toLowerCase())
                     )
                     .map((supplier, i) => (
-                      <tr key={supplier._id}>
+                      <tr key={supplier._id} className="text-center">
                         <td>{i + 1}</td>
                         <td>{supplier._id}</td>
                         <td>{supplier.username}</td>
                         <td>{supplier.email}</td>
                         <td><span className="badge bg-success">{supplier.role}</span></td>
                         <td>
-                          <button className="btn btn-sm btn-info me-2" onClick={() => { setSelectedSupplier(supplier); setShowSupplierViewModal(true); }}>
+                          <button className="btn-sm btn-info me-2" onClick={() => { setSelectedSupplier(supplier); setShowSupplierViewModal(true); }}>
                             <i className="bi bi-eye"></i> View
                           </button>
-                          <button className="btn btn-sm btn-warning me-2" onClick={() => { setSelectedSupplier(supplier); setShowSupplierEditModal(true); }}>
+                          <button className="btn-sm btn-warning me-2" onClick={() => { setSelectedSupplier(supplier); setShowSupplierEditModal(true); }}>
                             <i className="bi bi-pencil"></i> Edit
                           </button>
-                          <button className="btn btn-sm btn-danger" onClick={() => deleteSupplier(supplier._id)}>
+                          <button className="btn-sm btn-danger" onClick={() => deleteSupplier(supplier._id)}>
                             <i className="bi bi-trash"></i> Delete
                           </button>
                         </td>
@@ -663,8 +662,8 @@ const AdminDashboard = () => {
                   </select>
                 </div>
                 <div className="modal-footer">
-                  <button type="submit" className="btn btn-primary">Save</button>
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowSupplierEditModal(false)}>Cancel</button>
+                  <button type="submit" className="p-2  btn-primary" style={{ borderRadius: "10px", width: "100px" }}>Save</button>
+                  <button type="button" className="p-2 btn-secondary" style={{ borderRadius: "10px", width: "100px" }} onClick={() => setShowSupplierEditModal(false)}>Cancel</button>
                 </div>
               </form>
             </div>
@@ -737,7 +736,7 @@ const AdminDashboard = () => {
             <div className="table-responsive mt-3">
               <table className="table table-bordered table-striped align-middle">
                 <thead className="table-primary">
-                  <tr>
+                  <tr className="text-center">
                     <th>#</th>
                     <th>User ID</th>
                     <th>Email</th>
@@ -758,7 +757,7 @@ const AdminDashboard = () => {
                         req.user?.email?.toLowerCase().includes(searchWaterRequest.toLowerCase())
                       )
                       .map((req, i) => (
-                        <tr key={req._id}>
+                        <tr key={req._id} className="text-center">
                           <td>{i + 1}</td>
                           <td>{req.user?._id || "N/A"}</td>
                           <td>{req.user?.email || "N/A"}</td>
@@ -772,13 +771,13 @@ const AdminDashboard = () => {
                             </span>
                           </td>
                           <td className="text-center">
-                            <button className="btn btn-sm btn-info me-2" onClick={() => { setSelectedRequest(req); setShowRequestEdit(true); }}>
+                            <button className="btn-sm btn-info me-2" onClick={() => { setSelectedRequest(req); setShowRequestEdit(true); }}>
                               <i className="bi bi-eye"></i>
                             </button>
-                            <button className="btn btn-sm btn-warning me-2" onClick={() => { setSelectedRequest(req); setShowRequestEdit(true); }}>
+                            <button className="btn-sm btn-warning me-2" onClick={() => { setSelectedRequest(req); setShowRequestEdit(true); }}>
                               <i className="bi bi-pencil"></i>
                             </button>
-                            <button className="btn btn-sm btn-danger" onClick={() => handleDeleteRequest(req._id)}>
+                            <button className="btn-sm btn-danger" onClick={() => handleDeleteRequest(req._id)}>
                               <i className="bi bi-trash"></i>
                             </button>
                           </td>
@@ -849,8 +848,8 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <div className="modal-footer">
-                      <button type="submit" className="btn btn-primary">Update</button>
-                      <button type="button" className="btn btn-secondary" onClick={() => setShowRequestEdit(false)}>Cancel</button>
+                      <button type="submit" className="p-2 btn-primary" style={{ borderRadius: "10px", width: "100px" }}>Update</button>
+                      <button type="button" className="p-2 btn-secondary" style={{ borderRadius: "10px", width: "100px" }} onClick={() => setShowRequestEdit(false)}>Cancel</button>
                     </div>
                   </form>
                 </div>
@@ -898,7 +897,7 @@ const AdminDashboard = () => {
                         <td>{report.dateOfIssue || "N/A"}</td>
                         <td>
                           <button
-                            className="btn btn-sm btn-info me-2"
+                            className="btn-sm btn-info me-2"
                             onClick={() => {
                               setViewReport(report);
                               setShowViewModal(true);
@@ -907,7 +906,7 @@ const AdminDashboard = () => {
                             <i className="bi bi-eye"></i>
                           </button>
                           <button
-                            className="btn btn-sm btn-warning me-2"
+                            className="btn-sm btn-warning me-2"
                             onClick={() => {
                               setEditReport({ ...report });
                               setShowEditModal(true);
@@ -916,7 +915,7 @@ const AdminDashboard = () => {
                             <i className="bi bi-pencil"></i>
                           </button>
                           <button
-                            className="btn btn-sm btn-danger"
+                            className="btn-sm btn-danger"
                             onClick={() => handleDeleteReport(report._id)}
                           >
                             <i className="bi bi-trash"></i>
@@ -983,7 +982,7 @@ const AdminDashboard = () => {
                       <label className="form-label">Description</label>
                       <textarea className="form-control" rows="3" value={editReport.description} onChange={(e) => setEditReport({ ...editReport, description: e.target.value })}></textarea>
                     </div>
-                    <button className="btn btn-primary w-100" type="submit">Update Report</button>
+                    <button className="p-2 btn-primary w-100" type="submit" style={{ borderRadius: "10px", width: "100px" }}>Update Report</button>
                   </form>
                 </div>
               </div>
@@ -994,7 +993,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Internal CSS */}
-      
+
       <style>{`
 
         .sidebar {

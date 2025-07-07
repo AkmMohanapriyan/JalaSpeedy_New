@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Report from '../Models/reportModel.js';
 
+// Submit a Report
 export const submitReport = asyncHandler(async (req, res) => {
   const { type, location, dateOfIssue, description } = req.body;
 
@@ -20,16 +21,19 @@ export const submitReport = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'Report submitted successfully', report });
 });
 
+// User Get Their Reports
 export const getMyReports = asyncHandler(async (req, res) => {
   const reports = await Report.find({ user: req.user._id }).sort({ createdAt: -1 });
   res.json(reports);
 });
 
+// Admin Get All Reports
 export const getAllReports = asyncHandler(async (req, res) => {
   const reports = await Report.find().populate('user', 'name email');
   res.json(reports);
 });
 
+// Admin Update Report by ID
 export const updateReportById = async (req, res) => {
   try {
     const reportId = req.params.id;

@@ -62,44 +62,44 @@ const HomeSection = () => {
 
 
   const services = [
-  {
-    title: 'Scheduled Water Delivery',
-    desc: 'Plan and receive water deliveries at your convenience with our booking system.',
-    icon: 'bi-truck'
-  },
-  {
-    title: 'Leak Detection Alerts',
-    desc: 'Receive instant alerts if pipeline leaks or unusual water usage is detected.',
-    icon: 'bi-exclamation-octagon'
-  },
-  {
-    title: 'Usage Monitoring',
-    desc: 'Track your daily, weekly, and monthly water consumption from your dashboard.',
-    icon: 'bi-graph-up-arrow'
-  },
-  {
-    title: 'Emergency Supply Requests',
-    desc: 'Quick request system for immediate water needs during unexpected outages.',
-    icon: 'bi-lightning-fill'
-  },
-  {
-    title: 'Water Quality Reports',
-    desc: 'Stay informed with real-time water quality updates and analysis.',
-    icon: 'bi-droplet-half'
-  },
-  {
-    title: 'Billing & Invoicing',
-    desc: 'Access invoices, payment history, and receive billing notifications.',
-    icon: 'bi-receipt'
-  },
-];
+    {
+      title: 'Scheduled Water Delivery',
+      desc: 'Plan and receive water deliveries at your convenience with our booking system.',
+      icon: 'bi-truck'
+    },
+    {
+      title: 'Leak Detection Alerts',
+      desc: 'Receive instant alerts if pipeline leaks or unusual water usage is detected.',
+      icon: 'bi-exclamation-octagon'
+    },
+    {
+      title: 'Usage Monitoring',
+      desc: 'Track your daily, weekly, and monthly water consumption from your dashboard.',
+      icon: 'bi-graph-up-arrow'
+    },
+    {
+      title: 'Emergency Supply Requests',
+      desc: 'Quick request system for immediate water needs during unexpected outages.',
+      icon: 'bi-lightning-fill'
+    },
+    {
+      title: 'Water Quality Reports',
+      desc: 'Stay informed with real-time water quality updates and analysis.',
+      icon: 'bi-droplet-half'
+    },
+    {
+      title: 'Billing & Invoicing',
+      desc: 'Access invoices, payment history, and receive billing notifications.',
+      icon: 'bi-receipt'
+    },
+  ];
 
 
   return (
     <>
 
-    <Navbar />
-    <HomeAnimation />
+      <Navbar />
+      <HomeAnimation />
 
       {/* Home Section */}
 
@@ -208,28 +208,28 @@ const HomeSection = () => {
 
       {/* Services Section */}
 
-       <section id="services" className="service-section py-5 bg-white">
-      <div className="container-fluid">
-        <div className="text-center mb-5">
-          <h2 className="fw-bold service-title">Our Services</h2>
-          <p className="">JalaSpeedy provides a range of services to make water supply smarter and accessible</p>
-        </div>
+      <section id="services" className="service-section py-5 bg-white">
+        <div className="container-fluid">
+          <div className="text-center mb-5">
+            <h2 className="fw-bold service-title">Our Services</h2>
+            <p className="">JalaSpeedy provides a range of services to make water supply smarter and accessible</p>
+          </div>
 
-        <div className="row g-4">
-          {services.map((service, index) => (
-            <div className="col-md-4" key={index}>
-              <div className="service-card h-100 text-center p-4 shadow-sm bg-light rounded">
-                <div className="service-icon mb-3">
-                  <i className={`bi ${service.icon} fs-1`}></i>
+          <div className="row g-4">
+            {services.map((service, index) => (
+              <div className="col-md-6" key={index}>
+                <div className="service-card h-100 text-center p-4 shadow-sm bg-light rounded">
+                  <div className="service-icon mb-3">
+                    <i className={`bi ${service.icon} fs-1`}></i>
+                  </div>
+                  <h5 className="fw-semibold">{service.title}</h5>
+                  <p className="">{service.desc}</p>
                 </div>
-                <h5 className="fw-semibold">{service.title}</h5>
-                <p className="">{service.desc}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* Contact Section */}
 
@@ -321,7 +321,7 @@ const HomeSection = () => {
         </div>
       </section>
 
-    <Footer />
+      <Footer />
 
     </>
   );

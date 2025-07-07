@@ -12,18 +12,18 @@ export const registerUser = async (req, res) => {
 
   const user = await User.create({ username, email, role, password });
 
-if (user) {
-  res.status(201).json({
-    message: "User registered successfully",
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    role: user.role,
-    token: generateToken(user._id),
-  });
-} else {
-  res.status(400).json({ message: 'Invalid user data' });
-}
+  if (user) {
+    res.status(201).json({
+      message: "User registered successfully",
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400).json({ message: 'Invalid user data' });
+  }
 };
 
 // POST /api/users/login

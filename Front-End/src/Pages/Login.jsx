@@ -1,4 +1,4 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../assets/Css/login.css';
@@ -16,10 +16,10 @@ import { useNavigate } from 'react-router-dom';
 const LoginModal = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [message, setMessage] = useState('');
-const [messageType, setMessageType] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
 
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ const [messageType, setMessageType] = useState('');
     <>
 
       {/* Modal */}
-       <div
+      <div
         className="modal fade"
         id="loginModal"
         tabIndex="-1"
@@ -96,59 +96,59 @@ const [messageType, setMessageType] = useState('');
 
               {/* Feedback Message */}
               {message && (
-    <div className={`alert alert-${messageType} py-2 text-center`} role="alert">
-      {message}
-    </div>
-  )}
+                <div className={`alert alert-${messageType} py-2 text-center`} role="alert">
+                  {message}
+                </div>
+              )}
 
-  <div className="form-container">
-    <form onSubmit={handleLogin}>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">Email address</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="example@jalaspeedy.lk"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+              <div className="form-container">
+                <form onSubmit={handleLogin}>
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">Email address</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      placeholder="example@jalaspeedy.lk"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
 
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">Password</label>
-        <div className="input-group border">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            className="form-control"
-            id="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            className="btn-outline-secondary input-group-text border-solid-1 bg-secondary text-light cursor-pointer rounded-end"
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <i className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}></i>
-          </button>
-        </div>
-      </div>
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <div className="input-group border">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        className="form-control"
+                        id="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      <button
+                        className="btn-outline-secondary input-group-text border-solid-1 bg-secondary text-light cursor-pointer rounded-end"
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        <i className={`bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}></i>
+                      </button>
+                    </div>
+                  </div>
 
-      <div className="d-grid">
-        <button type="submit" className="btn-login rounded-pill">Login</button>
-      </div>
+                  <div className="d-grid">
+                    <button type="submit" className="btn-login rounded-pill">Login</button>
+                  </div>
 
-      <div className="mt-3 text-center">
-        <small>
-          Don't have an account? <Link to={RegisterModal} data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Sign Up</Link>
-        </small>
-      </div>
-    </form>
-  </div>
+                  <div className="mt-3 text-center">
+                    <small>
+                      Don't have an account? <Link to={RegisterModal} data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">Sign Up</Link>
+                    </small>
+                  </div>
+                </form>
+              </div>
             </div>
 
           </div>

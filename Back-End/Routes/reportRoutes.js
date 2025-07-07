@@ -1,7 +1,7 @@
 
 import express from 'express';
-import { submitReport , getMyReports , getAllReports , updateReportById} from '../Controllers/reportController.js';
-import { protect , supplierOrAdmin , authMiddleware} from '../Middlewares/authMiddleware.js';
+import { submitReport, getMyReports, getAllReports, updateReportById } from '../Controllers/reportController.js';
+import { protect, supplierOrAdmin, authMiddleware } from '../Middlewares/authMiddleware.js';
 
 const router = express.Router();
 
