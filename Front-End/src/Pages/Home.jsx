@@ -217,7 +217,7 @@ const HomeSection = () => {
 
           <div className="row g-4">
             {services.map((service, index) => (
-              <div className="col-md-6" key={index}>
+              <div className="col-md-4" key={index}>
                 <div className="service-card h-100 text-center p-4 shadow-sm bg-light rounded">
                   <div className="service-icon mb-3">
                     <i className={`bi ${service.icon} fs-1`}></i>

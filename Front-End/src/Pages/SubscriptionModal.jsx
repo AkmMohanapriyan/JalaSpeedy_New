@@ -134,12 +134,12 @@ const SubscriptionModal = ({ show, onClose, onConfirm }) => {
 
 
           <style>{`
-        // .subscription-cards {
-        //   display: flex;
-        //   flex-wrap: wrap;
-        //   gap: 1rem;
-        //   justify-content: center;
-        // }
+        .subscription-cards {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: center;
+        }
 
         .plan-box {
           width: 100%;
@@ -179,6 +179,23 @@ const SubscriptionModal = ({ show, onClose, onConfirm }) => {
         .plan-title {
           font-size: 1.25rem;
           font-weight: 700;
+        }
+
+
+        @media (max-width: 768px) {
+          .subscription-cards {
+            flex-direction: column;
+            align-items: center;
+          }
+          .plan-box {
+            width: 100%;
+            max-width: 100%;
+            flex: 1 1 100%;
+          }
+          .modal-title {
+            font-size: 1.5rem;
+            text-align: center;
+          }
         }
       `}</style>
 

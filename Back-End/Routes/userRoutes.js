@@ -10,6 +10,7 @@ import {
   getAllSuppliers,
   getProfile
 } from '../Controllers/userController.js';
+import { sendOtp, verifyOtp } from '../Controllers/otpController.js';
 import { protect, adminOnly, supplierOrAdmin } from '../Middlewares/authMiddleware.js';
 
 
@@ -19,6 +20,9 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);       
 
 router.get('/me', protect, getProfile);
+
+router.post('/send-otp', sendOtp);
+router.post('/verify-otp', verifyOtp);
 
 router.get("/only-users", protect, adminOnly, getRegularUsers);
 router.get('/suppliers', protect, supplierOrAdmin, getAllSuppliers);

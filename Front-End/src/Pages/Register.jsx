@@ -8,6 +8,7 @@ import axios from 'axios';
 import '../assets/Css/Register.css';
 import SubscriptionModal from '../Pages/SubscriptionModal';
 import LoginModal from './Login';
+import OtpModal from '../Pages/OtpModal';
 
 
 
@@ -22,26 +23,67 @@ const RegisterModal = () => {
 
   const [showLoader, setShowLoader] = useState(false);
 
+  const [showOtpModal, setShowOtpModal] = useState(false);
+
+
   const [formData, setFormData] = useState({
     username: '', email: '', role: '', password: '', confirmPassword: '',
   });
 
+  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const { password, confirmPassword } = formData;
-    if (password !== confirmPassword) {
-      setSubscriptionMessage({ show: true, text: 'Passwords do not match', type: 'danger' });
-      return;
-    }
-    const regModal = window.bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-    regModal?.hide();
-    setShowSubscription(true);
-  };
+  // const handleRegister = (e) => {
+  //   e.preventDefault();
+  //   const { password, confirmPassword } = formData;
+  //   if (password !== confirmPassword) {
+  //     setSubscriptionMessage({ show: true, text: 'Passwords do not match', type: 'danger' });
+  //     return;
+  //   }
+  //   const regModal = window.bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+  //   regModal?.hide();
+  //   setShowSubscription(true);
+  // };
 
+  // // Handle Register and OTP
+const handleRegister = async (e) => {
+  e.preventDefault();
+  const { email, password, confirmPassword } = formData;
+
+  if (password !== confirmPassword) {
+    setSubscriptionMessage({ show: true, text: 'Passwords do not match', type: 'danger' });
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:5000/api/users/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+
+    localStorage.setItem('otp_email', email);
+    setShowOtpModal(true);
+    window.bootstrap.Modal.getInstance(document.getElementById('registerModal'))?.hide();
+  } catch (err) {
+    toast.error(err.message || 'Failed to send OTP');
+  }
+};
+
+
+  // Handle OTP Verification
+  const handleOtpVerified = () => {
+  setShowOtpModal(false);
+  setShowSubscription(true);
+};
+
+
+// Handle Plan Confirmation
 const handlePlanConfirm = async () => {
   const { username, email, role, password } = formData;
 
@@ -72,6 +114,8 @@ const handlePlanConfirm = async () => {
   }
 };
 
+
+// // Handle Subscription Cancel
   const handleSubscriptionCancel = () => {
     setShowSubscription(false);
     setSubscriptionMessage({ show: true, text: 'Subscription not completed. Registration cancelled.', type: 'danger' });
@@ -196,14 +240,18 @@ const handlePlanConfirm = async () => {
 
       {/* Success Message */}
 
-      {showSubscription && (
-        <SubscriptionModal
-          show={showSubscription}
-          onClose={handleSubscriptionCancel}
-          onConfirm={handlePlanConfirm}
-          message={subscriptionMessage}
-        />
-      )}
+{showOtpModal && (
+  <OtpModal show={showOtpModal} onClose={() => setShowOtpModal(false)} onVerify={handleOtpVerified} />
+)}
+
+{showSubscription && (
+  <SubscriptionModal
+    show={showSubscription}
+    onClose={handleSubscriptionCancel}
+    onConfirm={handlePlanConfirm}
+    message={subscriptionMessage}
+  />
+)}
 
 {showLoader && (
   <div className="loader-container">
