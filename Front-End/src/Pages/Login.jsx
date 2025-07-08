@@ -6,6 +6,7 @@ import RegisterModal from './Register';
 import { Link } from 'react-scroll';
 import Modal from 'bootstrap/js/dist/modal';
 import axios from 'axios';
+import LoginLoader from '../Pages/LoginLoader';
 
 
 import { useNavigate } from 'react-router-dom';
@@ -21,50 +22,107 @@ const LoginModal = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
+  const [showLoginLoader, setShowLoginLoader] = useState(false);
+const [loginUsername, setLoginUsername] = useState('');
+
+
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/users/login", {
-        email,
-        password,
-      });
+  //   try {
+  //     const res = await axios.post("http://localhost:5000/api/users/login", {
+  //       email,
+  //       password,
+  //     });
 
-      // Save token and user to localStorage
-      localStorage.setItem("auth_token", res.data.token);
-      localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+  //     // Save token and user to localStorage
+  //     localStorage.setItem("auth_token", res.data.token);
+  //     localStorage.setItem("userInfo", JSON.stringify(res.data.user));
 
-      // Set success message
-      setMessage("Login successful!");
-      setMessageType("success");
+  //     // Set success message
+  //     // setMessage("Login successful!");
+  //     // setMessageType("success");
 
-      // Delay closing modal and redirect for UX
-      setTimeout(() => {
-        const modalEl = document.getElementById("loginModal");
-        if (modalEl) {
-          const modal = bootstrap.Modal.getInstance(modalEl);
-          if (modal) modal.hide();
-        }
+  //         // Set loader state with username
+  //   setLoginUsername(res.data.user.username);
+  //   setShowLoginLoader(true); // 🟢 This line was missing
 
-        // Redirect based on role
-        if (res.data.user.role === "admin") {
-          navigate("/admindashboard");
-        } else if (res.data.user.role === "supplier") {
-          navigate("/supplierdashboard");
-        } else {
-          navigate("/userdashboard");
-        }
-      }, 1000);
+  //     // Delay closing modal and redirect for UX
+  //     setTimeout(() => {
 
-    } catch (err) {
-      console.error("Login error:", err);
-      setMessage("Invalid email or password.");
-      setMessageType("danger");
-    }
-  };
+  //         setShowLoginLoader(false);
 
+
+  //       const modalEl = document.getElementById("loginModal");
+  //       if (modalEl) {
+  //         const modal = bootstrap.Modal.getInstance(modalEl);
+  //         if (modal) modal.hide();
+  //       }
+
+  //       // Redirect based on role
+  //       if (res.data.user.role === "admin") {
+  //         navigate("/admindashboard");
+  //       } else if (res.data.user.role === "supplier") {
+  //         navigate("/supplierdashboard");
+  //       } else {
+  //         navigate("/userdashboard");
+  //       }
+  //     }, 2000);
+
+  //   } catch (err) {
+  //     console.error("Login error:", err);
+  //     setMessage("Invalid email or password.");
+  //     setMessageType("danger");
+  //   }
+  // };
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post("http://localhost:5000/api/users/login", {
+      email,
+      password,
+    });
+
+    // Save token and user to localStorage
+    localStorage.setItem("auth_token", res.data.token);
+    localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+
+    // Start loader immediately
+    setLoginUsername(res.data.user.username);
+    setShowLoginLoader(true); 
+
+    // Delay redirect after animation
+    setTimeout(() => {
+      setShowLoginLoader(false); 
+
+      // Redirect after loader disappears
+      if (res.data.user.role === "admin") {
+        navigate("/admindashboard");
+      } else if (res.data.user.role === "supplier") {
+        navigate("/supplierdashboard");
+      } else {
+        navigate("/userdashboard");
+      }
+
+      // Move modal closing AFTER navigate
+      const modalEl = document.getElementById("loginModal");
+      if (modalEl) {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+      }
+
+    }, 9000);
+
+  } catch (err) {
+    console.error("Login error:", err);
+    setMessage("Invalid email or password.");
+    setMessageType("danger");
+  }
+};
 
   return (
     <>
@@ -154,6 +212,9 @@ const LoginModal = () => {
           </div>
         </div>
       </div>
+
+      {showLoginLoader && <LoginLoader username={loginUsername} />}
+
     </>
   );
 };

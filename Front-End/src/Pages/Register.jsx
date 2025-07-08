@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-scroll';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -18,6 +19,8 @@ const RegisterModal = () => {
 
   const [showSubscription, setShowSubscription] = useState(false);
   const [subscriptionMessage, setSubscriptionMessage] = useState({ show: false, text: '', type: '' });
+
+  const [showLoader, setShowLoader] = useState(false);
 
   const [formData, setFormData] = useState({
     username: '', email: '', role: '', password: '', confirmPassword: '',
@@ -39,36 +42,35 @@ const RegisterModal = () => {
     setShowSubscription(true);
   };
 
-  const handlePlanConfirm = async () => {
-    const { username, email, role, password } = formData;
+const handlePlanConfirm = async () => {
+  const { username, email, role, password } = formData;
 
-    try {
-      const res = await fetch('http://localhost:5000/api/users/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, role, password })
-      });
+  try {
+    const res = await fetch('http://localhost:5000/api/users/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, role, password })
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!res.ok) throw new Error(data.message || 'Registration failed');
+    if (!res.ok) throw new Error(data.message || 'Registration failed');
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
 
-      setSubscriptionMessage({ show: true, text: 'Registration Successful!', type: 'success' });
+    toast.success(`Welcome ${username}! Registration Successful`);
 
-      setTimeout(() => {
-        setShowSubscription(false);
-        setSubscriptionMessage({ show: false, text: '', type: '' });
-        const loginModal = new window.bootstrap.Modal(document.getElementById('loginModal'));
-        loginModal?.show();
-      }, 1500);
+    setTimeout(() => {
+      setShowSubscription(false);
+      const loginModal = new window.bootstrap.Modal(document.getElementById('loginModal'));
+      loginModal?.show();
+    }, 1500);
 
-    } catch (err) {
-      console.error('Final Registration Error:', err);
-      setSubscriptionMessage({ show: true, text: err.message || 'Registration failed after subscription.', type: 'danger' });
-    }
-  };
+  } catch (err) {
+    console.error('Final Registration Error:', err);
+    toast.error(err.message || 'Registration failed after subscription.');
+  }
+};
 
   const handleSubscriptionCancel = () => {
     setShowSubscription(false);
@@ -203,6 +205,12 @@ const RegisterModal = () => {
         />
       )}
 
+{showLoader && (
+  <div className="loader-container">
+    <div className="spinner"></div>
+    <p className="fs-5">Dear <strong>{createdUsername}</strong>! Your Account is being created. Please wait...</p>
+  </div>
+)}
     </>
   );
 };

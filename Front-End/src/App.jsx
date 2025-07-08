@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Routes, Route } from "react-router-dom";
 import SubscriptionModal from './Pages/SubscriptionModal';
 
@@ -32,6 +34,7 @@ function App() {
 
       <RegisterModal />
       <LoginModal />
+<ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
     </>
   )
