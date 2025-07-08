@@ -25,6 +25,14 @@ const RegisterModal = () => {
 
   const [showOtpModal, setShowOtpModal] = useState(false);
 
+  const [selectedPlan, setSelectedPlan] = useState('');
+  const [paymentDetails, setPaymentDetails] = useState({
+    cardHolder: '',
+    cardNumber: '',
+    expiry: '',
+    cvc: ''
+  });
+
 
   const [formData, setFormData] = useState({
     username: '', email: '', role: '', password: '', confirmPassword: '',
@@ -84,10 +92,43 @@ const handleRegister = async (e) => {
 
 
 // Handle Plan Confirmation
-const handlePlanConfirm = async () => {
+// const handlePlanConfirm = async () => {
+//   const { username, email, role, password } = formData;
+
+//   try {
+//     const res = await fetch('http://localhost:5000/api/users/register', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ username, email, role, password })
+//     });
+
+//     const data = await res.json();
+
+//     if (!res.ok) throw new Error(data.message || 'Registration failed');
+
+//     localStorage.setItem('userInfo', JSON.stringify(data));
+
+//     toast.success(`Welcome ${username}! Registration Successful`);
+
+//     setTimeout(() => {
+//       setShowSubscription(false);
+//       const loginModal = new window.bootstrap.Modal(document.getElementById('loginModal'));
+//       loginModal?.show();
+//     }, 1500);
+
+//   } catch (err) {
+//     console.error('Final Registration Error:', err);
+//     toast.error(err.message || 'Registration failed after subscription.');
+//   }
+// };
+
+
+
+const handlePlanConfirm = async (selectedPlan, paymentDetails) => {
   const { username, email, role, password } = formData;
 
   try {
+    // Register user
     const res = await fetch('http://localhost:5000/api/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -95,12 +136,22 @@ const handlePlanConfirm = async () => {
     });
 
     const data = await res.json();
-
     if (!res.ok) throw new Error(data.message || 'Registration failed');
 
     localStorage.setItem('userInfo', JSON.stringify(data));
+    const token = data.token;
 
-    toast.success(`Welcome ${username}! Registration Successful`);
+    // Save Subscription
+    await axios.post('http://localhost:5000/api/subscriptions', {
+      plan: selectedPlan,
+      paymentDetails
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    toast.success(`Welcome ${username}! Subscription saved.`);
 
     setTimeout(() => {
       setShowSubscription(false);
@@ -109,10 +160,12 @@ const handlePlanConfirm = async () => {
     }, 1500);
 
   } catch (err) {
-    console.error('Final Registration Error:', err);
-    toast.error(err.message || 'Registration failed after subscription.');
+    console.error(err);
+    toast.error(err.message || 'Registration or subscription failed.');
   }
 };
+
+
 
 
 // // Handle Subscription Cancel
@@ -248,8 +301,11 @@ const handlePlanConfirm = async () => {
   <SubscriptionModal
     show={showSubscription}
     onClose={handleSubscriptionCancel}
-    onConfirm={handlePlanConfirm}
-    message={subscriptionMessage}
+    onConfirm={(plan, payment) => {
+      setSelectedPlan(plan);
+      setPaymentDetails(payment);
+      handlePlanConfirm(plan, payment);
+    }}
   />
 )}
 

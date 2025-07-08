@@ -7,6 +7,7 @@ import waterRequestRoutes from './Routes/waterRequestRoutes.js';
 import requestRoutes from './Routes/requestRoutes.js';
 import reportRoutes from './Routes/reportRoutes.js';
 import emergencyRoutes from "./Routes/emergencyRequestRoutes.js";
+import subscriptionRoutes from './Routes/subscriptionRoutes.js';
 
 
 
@@ -23,6 +24,9 @@ app.use('/api/requests', requestRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api', reportRoutes);
 app.use("/api/emergency-requests", emergencyRoutes);
+
+app.use('/api/subscriptions', subscriptionRoutes); // ✅ ADD THIS
+
 
 
 app.get("/", (req, res) => {

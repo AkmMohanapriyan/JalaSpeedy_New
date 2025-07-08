@@ -125,7 +125,7 @@ const SubscriptionModal = ({ show, onClose, onConfirm }) => {
 
           <div className="modal-footer">
             <button className="btn-cancel p-2" style={{ backgroundColor: '#f44336', color: '#fff', borderRadius: '10px' }} onClick={onClose}>Cancel</button>
-            <button className="btn-confirm p-2" style={{ backgroundColor: '#000428', color: '#fff', borderRadius: '10px' }} disabled={!isFormComplete} onClick={onConfirm}>Confirm Plan</button>
+            <button className="btn-confirm p-2" style={{ backgroundColor: '#000428', color: '#fff', borderRadius: '10px' }} disabled={!isFormComplete} onClick={() => onConfirm(selectedPlan, paymentDetails)}>Confirm Plan</button>
           </div>
         </div>
       </div>
